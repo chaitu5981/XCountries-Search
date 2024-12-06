@@ -30,7 +30,7 @@ const App = () => {
   return (
     <div className="main">
       <input
-        type="text/"
+        type="text"
         placeholder="Search for countries"
         value={search}
         className="search"
