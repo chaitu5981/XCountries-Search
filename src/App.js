@@ -3,25 +3,30 @@ import Country from "./Country";
 import "./App.css";
 const App = () => {
   const [countries, setCountries] = useState([]);
+  const [filteredCountries, setFilteredCountries] = useState([]);
   const [search, setSearch] = useState("");
   const fetchData = async () => {
     try {
       const res = await fetch("https://restcountries.com/v3.1/all");
       const data = await res.json();
-      let data1;
-      if (search === "") data1 = data;
-      else
-        data1 = data.filter((d) =>
-          d.name.common.toLowerCase().includes(search.toLowerCase())
-        );
-      setCountries(data1);
+      setCountries(data);
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
     fetchData();
-  }, [search]);
+  }, []);
+
+  useEffect(() => {
+    let data1;
+    if (search === "") data1 = countries;
+    else
+      data1 = countries.filter((d) =>
+        d.name.common.toLowerCase().includes(search.toLowerCase())
+      );
+    setFilteredCountries(data1);
+  }, [search, countries]);
   return (
     <div className="main">
       <input
@@ -32,7 +37,7 @@ const App = () => {
         onChange={(e) => setSearch(e.target.value)}
       />
       <div className="container">
-        {countries?.map((country) => (
+        {filteredCountries?.map((country) => (
           <Country
             key={country.name.common}
             name={country.name.common}
