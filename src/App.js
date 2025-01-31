@@ -7,9 +7,12 @@ const App = () => {
   const [search, setSearch] = useState("");
   const fetchData = async () => {
     try {
-      const res = await fetch("https://restcountries.com/v3.1/all", {
-        mode: "cors",
-      });
+      const res = await fetch(
+        " https://countries-search-data-prod-812920491762.asia-south1.run.app/countries ",
+        {
+          mode: "cors",
+        }
+      );
       console.log(res);
       const data = await res.json();
       console.log(data);
